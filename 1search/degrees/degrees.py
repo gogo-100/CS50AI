@@ -91,9 +91,39 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    frontier = QueueFrontier()
+    experienced = set()
 
-    # TODO
-    raise NotImplementedError
+    # BFS
+    add_node = Node(source, None, neighbors_for_person(source))
+    frontier.add(add_node)
+    experienced.add(add_node.state)
+    flag = False
+    while not frontier.empty() and not flag:
+        current_node = frontier.remove()
+        neighbors = current_node.action
+        for neighbor in neighbors:
+            if neighbor[1] in experienced:
+                continue
+            add_node = Node(neighbor[1], current_node, neighbors_for_person(neighbor[1]))
+            frontier.add(add_node)
+            experienced.add(add_node.state)
+            if add_node.state == target:   # if match the target
+                flag = True
+                break
+    
+    if flag:
+        result = list()
+        node = add_node
+        while node.parent is not None:
+            for item in node.parent.action:
+                if item[1] == node.state:
+                    result.insert(0,item)
+                    node = node.parent
+                    break
+        return result
+    else:
+        return None
 
 
 def person_id_for_name(name):
