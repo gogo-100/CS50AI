@@ -95,33 +95,27 @@ def shortest_path(source, target):
     experienced = set()
 
     # BFS
-    add_node = Node(source, None, neighbors_for_person(source))
-    frontier.add(add_node)
+    add_node = Node(source, None, None)   # 这里的action,不是存neighbors
+    frontier.add(add_node)                  # 是存前一个节点到当前节点的(movie,person)
     experienced.add(add_node.state)
-    flag = False
-    while not frontier.empty() and not flag:
+
+    while not frontier.empty():
         current_node = frontier.remove()
-        neighbors = current_node.action
-        for neighbor in neighbors:
+        for neighbor in neighbors_for_person(current_node.state):
             if neighbor[1] in experienced:
                 continue
-            add_node = Node(neighbor[1], current_node, neighbors_for_person(neighbor[1]))
+            add_node = Node(neighbor[1], current_node, neighbor)
             frontier.add(add_node)
             experienced.add(add_node.state)
+
             if add_node.state == target:   # if match the target
-                flag = True
-                break
-    
-    if flag:
-        result = list()
-        node = add_node
-        while node.parent is not None:
-            for item in node.parent.action:
-                if item[1] == node.state:
-                    result.insert(0,item)
-                    node = node.parent
-                    break
-        return result
+                result = list()
+                while add_node.parent is not None:
+                    result.insert(0,add_node.action)
+                    add_node = add_node.parent
+                return result
+    if source == target:
+        return list()
     else:
         return None
 
