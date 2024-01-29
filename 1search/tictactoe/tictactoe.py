@@ -128,10 +128,11 @@ def mostValue(state,index):
     return val
 
 def minimax(board):
-    most_value = None
-    most_action = None
     if terminal(board):
         return None
+    
+    most_value = None
+    most_action = None
     index = 0 if player(board) == X else 1
     funcs = [min, max]
     targets = [1, -1]
