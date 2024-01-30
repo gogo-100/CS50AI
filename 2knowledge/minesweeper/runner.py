@@ -126,7 +126,22 @@ while True:
                 neighborsTextRect = neighbors.get_rect()
                 neighborsTextRect.center = rect.center
                 screen.blit(neighbors, neighborsTextRect)
-
+            elif (i, j) in ai.safes:
+                neighbors = smallFont.render(
+                    str("√"),
+                    True, BLACK
+                )
+                neighborsTextRect = neighbors.get_rect()
+                neighborsTextRect.center = rect.center
+                screen.blit(neighbors, neighborsTextRect)
+            elif (i, j) in ai.mines:
+                neighbors = smallFont.render(
+                    str("X"),
+                    True, BLACK
+                )
+                neighborsTextRect = neighbors.get_rect()
+                neighborsTextRect.center = rect.center
+                screen.blit(neighbors, neighborsTextRect)
             row.append(rect)
         cells.append(row)
 

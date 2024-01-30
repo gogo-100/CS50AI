@@ -59,35 +59,26 @@ def result(board, action):
     result_board[action[0]][action[1]] = player(board)
     return result_board
 
+def check_line(cell0,cell1,cell2):
+    if cell0 == cell1 == cell2 and cell0 in ["X","O"]:
+        return cell0
+    else:
+        return None
 
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    temp_board = copy.deepcopy(board)
-    for i in range(3):
-        for j in range(3):
-            if temp_board[i][j] is EMPTY:
-                temp_board[i][j] = "E"
-    res = set()
     #  horizontally,
-    res.add(temp_board[0][0] + temp_board[0][1] + temp_board[0][2])
-    res.add(temp_board[1][0] + temp_board[1][1] + temp_board[1][2])
-    res.add(temp_board[2][0] + temp_board[2][1] + temp_board[2][2])
+    for i in range(3):
+        if check_line(board[i][0], board[i][1], board[i][2]) is not None:
+            return check_line(board[i][0], board[i][1], board[i][2])
     #  vertically,
-    res.add(temp_board[0][0] + temp_board[1][0] + temp_board[2][0])
-    res.add(temp_board[0][1] + temp_board[1][1] + temp_board[2][1])
-    res.add(temp_board[0][2] + temp_board[1][2] + temp_board[2][2])
+    for i in range(3):
+        if check_line(board[0][i], board[1][i], board[2][i]) is not None:
+            return check_line(board[0][i], board[1][i], board[2][i])
     #  diagonally.
-    res.add(temp_board[0][0] + temp_board[1][1] + temp_board[2][2])
-    res.add(temp_board[2][0] + temp_board[1][1] + temp_board[0][2])
-    
-    if "XXX" in res:
-        return X
-    elif "OOO" in res:
-        return O
-    else:
-        return None
+    return check_line(board[0][0], board[1][1], board[2][2]) or check_line(board[2][0], board[1][1], board[0][2])
 
 def terminal(board):
     """
