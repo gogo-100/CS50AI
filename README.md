@@ -4,15 +4,10 @@
 
 
 ### 0.search
-- degrees   
-    search path by BFS 
-
-- tictactoe    
-    adversarial Search, minimax
-
+- degrees: search path by BFS 
+- tictactoe: adversarial Search, minimax
+    
 ### 1. knowledge
-- knights
-    Model Checking algorithm
-
-- minesweeper helper
-    knowledge engineering
+- knights: model checking algorithm
+- minesweeper helper:  knowledge engineering
+   

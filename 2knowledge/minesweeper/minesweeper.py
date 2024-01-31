@@ -218,7 +218,7 @@ class MinesweeperAI():
         self.conclude(sentence)
         
         # 5. concluded from all sentences
-        # maybe needs loop here but it's enough to pass the test :)
+        # needs loop222-225 here but it's enough to pass the test :)
         result = self.infer()
         for new in result:
             self.knowledge.append(new)
