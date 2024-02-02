@@ -57,7 +57,13 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    raise NotImplementedError
+    n = len(corpus[page]) if len(corpus[page]) != 0 else len(corpus)
+    link_prob =  damping_factor / n
+    random_prob = (1 - damping_factor) / len(corpus)
+    link_prob += random_prob
+    return  {each_page: link_prob if each_page in corpus[page] else random_prob  
+             for each_page in corpus
+    }
 
 
 def sample_pagerank(corpus, damping_factor, n):
@@ -69,7 +75,15 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    page = random.choice(list(corpus))
+    cnts  =  { each_page: 0 for each_page in corpus}
+    for _ in range(n):
+        probs = transition_model(corpus, page, damping_factor)
+        page = random.choices(list(probs.keys()), weights=list(probs.values()))[0]
+        cnts[page] += 1
+    for page in cnts:
+        cnts[page] /= n
+    return cnts
 
 
 def iterate_pagerank(corpus, damping_factor):
@@ -81,8 +95,23 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
-
-
+    LIMIT = 0.001
+    diff = 1
+    probs = {page: 1 / len(corpus) for page in corpus}
+    random_prob = (1 - damping_factor) / len(corpus)
+    while diff > LIMIT:
+        diff = 0
+        for page in probs:
+            link_prob = damping_factor * sum([probs[item] / len(corpus[item])for item in corpus if page in corpus[item]])
+            link_prob += damping_factor * sum([probs[item] / len(corpus) for item in corpus if len(corpus[item]) == 0])
+            new_value = random_prob + link_prob
+            diff += abs(new_value - probs[page])
+            probs[page] = new_value
+    # normalization
+    sum_val = sum(probs.values())
+    for item in probs:
+        probs[item] /= sum_val
+    return probs
+    
 if __name__ == "__main__":
     main()

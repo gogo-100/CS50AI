@@ -10,4 +10,8 @@
 ### 1. knowledge
 - knights: model checking algorithm
 - minesweeper helper:  knowledge engineering
+
+### 2. certainty
+- heredity: bayesian networks
+- pagerank: markov chain
    

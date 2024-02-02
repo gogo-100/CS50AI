@@ -127,6 +127,7 @@ def powerset(s):
         )
     ]
 
+
 def get_gene(person, one_gene, two_genes):
     if person in one_gene:
         return 1
@@ -135,8 +136,10 @@ def get_gene(person, one_gene, two_genes):
     else:
         return 0
 
+
 def get_trait(person, have_trait):
     return person in have_trait
+
 
 def joint_probability(people, one_gene, two_genes, have_trait):
     """
@@ -157,6 +160,7 @@ def joint_probability(people, one_gene, two_genes, have_trait):
             return 1 - PROBS["mutation"]
         else:
             return PROBS["mutation"]
+
 
     def person_probability(person):
         gene = get_gene(person["name"], one_gene, two_genes)
@@ -194,7 +198,6 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
         probabilities[person]["trait"][trait] += p
 
 
-
 def normalize(probabilities):
     """
     Update `probabilities` such that each probability distribution
@@ -205,6 +208,7 @@ def normalize(probabilities):
             sum_value = sum(probabilities[person][distribution].values())
             for item in probabilities[person][distribution]:
                 probabilities[person][distribution][item] /= sum_value
+
 
 if __name__ == "__main__":
     main()
