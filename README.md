@@ -14,4 +14,7 @@
 ### 2. certainty
 - heredity: bayesian networks
 - pagerank: markov chain
+
+### 3. optimization
+- crossword: constraint satisfaction
    
