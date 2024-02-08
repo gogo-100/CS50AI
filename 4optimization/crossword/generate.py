@@ -135,12 +135,12 @@ class CrosswordCreator():
         if arcs is None:
             arcs = [(x,y) for x in self.domains for y in self.domains if x!=y]
         while len(arcs) != 0:
-            arc = arcs.pop(0)
-            if self.revise(arc[0], arc[1]):
-                if len(self.domains[arc[0]]) == 0:
+            x,y = arcs.pop(0)
+            if self.revise(x, y):
+                if len(self.domains[x]) == 0:
                     return False
                 else:
-                    arcs.extend((z, arc[0]) for z in self.crossword.neighbors(arc[0]) if z != arc[1])
+                    arcs.extend((z, x) for z in self.crossword.neighbors(x) if z != y)
         return True
 
     def assignment_complete(self, assignment):

@@ -18,3 +18,5 @@
 ### 3. optimization
 - crossword: constraint satisfaction
    
+### 4. learning
+- shopping: nearest-neighbor classification
