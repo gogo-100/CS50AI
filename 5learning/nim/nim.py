@@ -160,7 +160,6 @@ class NimAI():
                 if self.get_q_value(state,action) == val:
                     return action
            
-
         if epsilon and random.random() < self.epsilon:
             return random.choice(list(Nim.available_actions(state)))
         else:
