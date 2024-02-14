@@ -2,6 +2,7 @@
 
 [🤍course link](https://cs50.harvard.edu/ai/2024/)
 
+✅︎pass all the test
 
 ### 0.search
 - degrees: search path by BFS 
@@ -27,3 +28,4 @@
 
 ### 6. language
 - parser: context-free grammar
+- attention: BERT, attention

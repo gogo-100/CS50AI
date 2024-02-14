@@ -11,7 +11,7 @@ MODEL = "bert-base-uncased"
 K = 3
 
 # Constants for generating attention diagrams
-FONT = ImageFont.truetype("assets/fonts/OpenSans-Regular.ttf", 28)
+#FONT = ImageFont.truetype("assets/fonts/OpenSans-Regular.ttf", 28)
 GRID_SIZE = 40
 PIXELS_PER_WORD = 200
 
@@ -45,20 +45,17 @@ def get_mask_token_index(mask_token_id, inputs):
     Return the index of the token with the specified `mask_token_id`, or
     `None` if not present in the `inputs`.
     """
-    # TODO: Implement this function
-    raise NotImplementedError
-
-
+    for i, token in enumerate(inputs.input_ids[0]):
+        if token == mask_token_id:
+            return i
+    return None
 
 def get_color_for_attention_score(attention_score):
     """
     Return a tuple of three integers representing a shade of gray for the
     given `attention_score`. Each value should be in the range [0, 255].
     """
-    # TODO: Implement this function
-    raise NotImplementedError
-
-
+    return (int(255*attention_score), int(255*attention_score), int(255*attention_score))
 
 def visualize_attentions(tokens, attentions):
     """
@@ -70,13 +67,13 @@ def visualize_attentions(tokens, attentions):
     include both the layer number (starting count from 1) and head number
     (starting count from 1).
     """
-    # TODO: Update this function to produce diagrams for all layers and heads.
-    generate_diagram(
-        1,
-        1,
-        tokens,
-        attentions[0][0][0]
-    )
+    for i in range(len(attentions)):
+        generate_diagram(
+            1,
+            1,
+            tokens,
+            attentions[i][0][i]
+        )
 
 
 def generate_diagram(layer_number, head_number, tokens, attention_weights):
