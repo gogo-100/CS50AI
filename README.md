@@ -20,3 +20,10 @@
    
 ### 4. learning
 - shopping: nearest-neighbor classification
+- nim: q-learning
+
+### 5. neural networks
+- traffic: neural networks
+
+### 6. language
+- parser: context-free grammar
